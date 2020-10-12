@@ -51,6 +51,7 @@ class PropertyController extends AbstractController {
             si la variable slug ($slug) récupérée depuis l'url
             ne correspond pas au string rétourné par getSlug du nom de la propriété
             => redirection vers cette même route avec le bon slug
+            ex : /biens/mon-premier-moterroné-1 => /biens/mon-premier-bien-1
         */
         if ($property->getSlug() !== $slug) {
             return $this->redirectToRoute('property.show',[

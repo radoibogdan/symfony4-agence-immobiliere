@@ -26,4 +26,3 @@ class HomeController extends AbstractController {
     }
 }
 
-/* 3  31.35 OUVRIR LE WORD POUR METTRE LES ETAPES*/
