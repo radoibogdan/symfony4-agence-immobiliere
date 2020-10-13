@@ -62,7 +62,7 @@ class PropertyController extends AbstractController {
         // $property va récupérer tout seul l'id et va recherche l'entité Property avec l'id passé en argument
         return $this->render("property/show.html.twig",[
             'property' => $property,
-            'current_menu' => 'properties'
+            'current_menu' => 'properties' // utilisé dans le base.html.twig pour que le link soit actif
         ]);
     }
 }
