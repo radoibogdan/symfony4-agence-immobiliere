@@ -43,6 +43,7 @@ class PropertyController extends AbstractController {
         $form->handleRequest($request);
 
         $properties = $paginator->paginate(
+            // après avoir mis les filtres et validé, le $search est automatiquement rempli grâce au système de formulaire
             $this->repository->findAllVisibleQuery($search),
             $request->query->getInt('page',1),
             12

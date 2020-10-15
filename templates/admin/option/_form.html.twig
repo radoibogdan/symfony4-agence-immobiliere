@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {# pour que le bouton apparaisse à la fin #}
+    {{ form_rest(form) }}
+    <button class="btn btn-primary">{{ button | default('Enregistrer') }}</button>
+{{ form_end(form) }}
+
