@@ -18,7 +18,7 @@ class PropertySearch
     private $minSurface;
 
     /**
-     * @var ArrayCollection;
+     * @var ArrayCollection
      */
     private $options;
 
