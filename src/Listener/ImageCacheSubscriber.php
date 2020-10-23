@@ -2,6 +2,7 @@
 
 namespace App\Listener;
 
+use App\Entity\Picture;
 use App\Entity\Property;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -29,7 +30,7 @@ class ImageCacheSubscriber implements EventSubscriber {
 
     public function getSubscribedEvents()
     {
-        // On renvoie les évènements (quand une entité est supprimé ou modifié)qu'on va écouter
+        // On renvoie les évènements qu'on va écouter (quand une entité est supprimé ou modifié)
         return [
             'preRemove',
             'preUpdate'
@@ -37,9 +38,10 @@ class ImageCacheSubscriber implements EventSubscriber {
     }
 
     public function preRemove(LifecycleEventArgs $args) {
-        // cette partie est nécessaire car preUpdate est appelé aussi pour une modif de l'entité Option
+        // cette partie est nécessaire car "preRemove" est appelé aussi pour une modif de l'entité "Option" en on veut
+        // supprimer / remove() le fichier "imageFile" en cache uniquement quand on supprime une Picture
         $entity = $args->getEntity();
-        if (!$entity instanceof Property) {
+        if (!$entity instanceof Picture) {
             return;
         }
         $this->cacheManager->remove($this->uploaderHelper->asset($entity,'imageFile'));
@@ -48,7 +50,7 @@ class ImageCacheSubscriber implements EventSubscriber {
     public function preUpdate(PreUpdateEventArgs $args) {
         // cette partie est nécessaire car preUpdate est appelé aussi pour une modif de l'entité Option
         $entity = $args->getEntity();
-        if (!$entity instanceof Property) {
+        if (!$entity instanceof Picture) {
             return;
         }
 

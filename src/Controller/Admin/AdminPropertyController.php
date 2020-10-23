@@ -75,7 +75,6 @@ class AdminPropertyController extends AbstractController {
     public function edit(Property $property, Request $request)
     {
         // le createForm va utiliser l'entité passée en argument ($property) pour remplir le formulaire
-        // L'argument $property va être utilisé pour remplir le formulaire
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
