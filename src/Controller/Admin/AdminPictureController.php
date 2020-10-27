@@ -21,9 +21,8 @@ class AdminPictureController extends AbstractController {
      * @return JsonResponse
      */
     public function delete(Picture $picture, Request $request) {
-        // $request->getContent() = le contenu sous forme de chaîne de caractères
-        // true = sous forme de tableau associatif
-        $data = json_decode($request->getContent(),true); // récupère le token depuis le app.js
+        // $request->getContent() = // récupère le token depuis app.js(le "body") sous forme de chaîne de caractères
+        $data = json_decode($request->getContent(),true); // true = tableau associatif
 
         if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
             $entityManager = $this->getDoctrine()->getManager();

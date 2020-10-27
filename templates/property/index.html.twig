@@ -14,7 +14,15 @@
                         {{ form_row(form.maxPrice) }}
                     </div>
                     <div class="col">
-                        {{ form_row((form.options)) }}
+                        {{ form_row(form.options) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.address, {
+                            id : 'search_address'
+                        }) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.distance) }}
                     </div>
                     <div class="col">
                         <div class="form-group">
@@ -33,7 +41,7 @@
         <div class="row">
             {% for property in properties %}
                 <div class="col-md-4">
-                    {% include "property/_property.html.twig" %}
+                    {% include "property/_property.html.twig" with { property: property } %}
                 </div>
             {% endfor %}
         </div>

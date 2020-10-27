@@ -114,6 +114,11 @@ class Property
     private $updated_at;
 
     /**
+     * @var Picture|null
+     */
+    private $picture;
+
+    /**
      * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="property", orphanRemoval=true, cascade={"persist"})
      */
     private $pictures;
@@ -122,8 +127,22 @@ class Property
      * @Assert\All({
      *      @Assert\Image(mimeTypes="image/jpeg")
      * })
+     * Crée au moment de l'ajout de l'option (pictureFiles dans PropertyType) pour rajouter plusieurs images 13 - 6.42
+     * + getters and setters
      */
     private $pictureFiles;
+
+    /**
+     * @ORM\Column(type="float", scale=4, precision=6)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="float", scale=4, precision=7)
+     */
+    private $lng;
+
+    // ################### GETTERS AND SETTERS ################### //
 
     public function getId(): ?int
     {
@@ -352,14 +371,17 @@ class Property
     }
 
     /**
-     * récupérer la 1ère image si elle existe
+     * Getter pour récupérer la 1ère image de la série des images si elle existe
      */
     public function getPicture(): ?Picture
     {
-        if($this->pictures->isEmpty()){
-            return null;
-        }
-        return $this->pictures->first();
+        return $this->picture;
+    }
+
+    public function setPicture(Picture $picture): self
+    {
+        $this->picture = $picture;
+        return $this;
     }
 
     public function addPicture(Picture $picture): self
@@ -405,6 +427,30 @@ class Property
             $this->addPicture($picture);
         }
         $this->pictureFiles = $pictureFiles;
+        return $this;
+    }
+
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(float $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?float
+    {
+        return $this->lng;
+    }
+
+    public function setLng(float $lng): self
+    {
+        $this->lng = $lng;
+
         return $this;
     }
 

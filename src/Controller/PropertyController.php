@@ -46,16 +46,11 @@ class PropertyController extends AbstractController
         $search = new PropertySearch();
         $form = $this->createForm(PropertySearchType::class, $search);
         $form->handleRequest($request);
-
-        $properties = $paginator->paginate(
         // après avoir mis les filtres et validé, le $search est automatiquement rempli grâce au système de formulaire
-            $this->repository->findAllVisibleQuery($search),
-            $request->query->getInt('page', 1),
-            12
-        );
+
         return $this->render('property/index.html.twig', [
-            'current_menu' => 'properties', // utilisé dans le base.html.twig pour que le link soit actif
-            'properties' => $properties,
+            'current_menu' => 'properties', // utilisé dans le base.html.twig pour que le link soit highlighted
+            'properties' => $this->repository->paginateAllVisible($search, $request->query->getInt('page',1)),
             'form' => $form->createView()
         ]);
     }
